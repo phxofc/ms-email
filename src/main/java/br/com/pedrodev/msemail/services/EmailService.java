@@ -2,6 +2,7 @@ package br.com.pedrodev.msemail.services;
 
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,8 @@ public class EmailService {
 
             emailModel.setStatusEmail(StatusEmail.SENT);
             
-        } catch (Exception e) {
-            
+        } catch (MailException e) {
+            System.out.println("ERRO:"+e);
         emailModel.setStatusEmail(StatusEmail.ERROR); 
            } finally{
              return emailRepository.save(emailModel);
